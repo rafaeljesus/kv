@@ -2,13 +2,13 @@
 # and its dependencies with the aid of the Mix.Config module.
 use Mix.Config
 
-config :kvp, ecto_repos: [Kv.Repo]
+config :kv, ecto_repos: [Kv.Repo]
 
-config :kvp, Kv.Repo,
+config :kv, Kv.Repo,
   adapter: Ecto.Adapters.Postgres,
   username: "postgres",
   password: "postgres",
-  database: "kv",
+  database: "store",
   hostname: "localhost",
   pool_size: 10
 
