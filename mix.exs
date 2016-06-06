@@ -14,7 +14,7 @@ defmodule Kv.Mixfile do
   #
   # Type "mix help compile.app" for more information
   def application do
-    [applications: [:logger, :postgrex, :ecto],
+    [applications: [:logger, :postgrex, :ecto, :poison],
       mod: {Kv, []}]
   end
 
@@ -30,7 +30,8 @@ defmodule Kv.Mixfile do
   defp deps do
     [
       {:postgrex, "~> 0.11.1"},
-      {:ecto, "~> 2.0.0-rc.5"}
+      {:ecto, "~> 2.0.0-rc.5"},
+      {:poison, "~> 2.1.0"}
     ]
   end
 end

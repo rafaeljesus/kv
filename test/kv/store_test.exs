@@ -1,6 +1,6 @@
 defmodule Kv.StoreTest do
   use ExUnit.Case
-  alias Kv.{Store}
+  alias Kv.{Store, Repo}
 
   @invalid_attrs %{}
   @valid_attrs %{
@@ -12,13 +12,26 @@ defmodule Kv.StoreTest do
     }
   }
 
-  test "changeset with valid attributes" do
+  setup do
+    on_exit fn ->
+      Repo.delete_all(Store)
+    end
+  end
+
+  test "should changeset with valid attributes" do
     changeset = Store.changeset(%Store{}, @valid_attrs)
     assert changeset.valid?
   end
 
-  test "changeset with invalid attributes" do
+  test "should changeset with invalid attributes" do
     changeset = Store.changeset(%Store{}, @invalid_attrs)
     refute changeset.valid?
+  end
+
+  test "should get data from store" do
+    with {:ok, changeset} <- Store.changeset(%Store{}, @valid_attrs),
+      {:ok, store} <- Repo.insert(changeset),
+      {:ok, value} <- Store.get(store.name),
+      do: assert value["city"] == @valid_attrs.data.city
   end
 end
