@@ -47,4 +47,10 @@ defmodule Kv.StoreTest do
       {:ok, value} <- Store.get(@valid_attrs.name),
       do: assert value == nil
   end
+
+  test "should find all data in store" do
+    with {:ok, _} <- Store.set(@valid_attrs.name, @valid_attrs.data),
+      {:ok, values} <- Store.get(@valid_attrs.name),
+      do: assert List.length values == 1
+  end
 end
