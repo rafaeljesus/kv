@@ -40,4 +40,11 @@ defmodule Kv.StoreTest do
       {:ok, value} <- Store.get(@valid_attrs.name),
       do: assert value["city"] == @valid_attrs.data.city
   end
+
+  test "should clear data in store" do
+    with {:ok, _} <- Store.set(@valid_attrs.name, @valid_attrs.data),
+      {:ok, _} <- Store.clear(),
+      {:ok, value} <- Store.get(@valid_attrs.name),
+      do: assert value == nil
+  end
 end
